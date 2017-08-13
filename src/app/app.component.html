@@ -1,13 +1,45 @@
-<app-header></app-header>
+<md-sidenav-container class="blog-container">
+  <div class="blog-content">
+    <md-toolbar color="primary">
+      <button md-icon-button class="nav-button" (click)="sidenav.open()">
+        <md-icon>menu</md-icon>
+      </button>
+      <md-nav-list class="user-bar">
+        <md-list-item md-line>
+          <i class="fa fa-user" aria-hidden="true"></i>
+          <span>username</span>
+        </md-list-item>
+        <md-list-item md-line>
+          <span>Sign Up</span>
+          <i class="fa fa-user-plus" aria-hidden="true"></i>
+        </md-list-item>
+        <md-list-item md-line>
+          <span>Login</span>
+          <i class="fa fa-sign-in" aria-hidden="true"></i>
+        </md-list-item>
+        <md-list-item md-line>
+          <span>Logout</span>
+          <i class="fa fa-sign-out" aria-hidden="true"></i>
+        </md-list-item>
+      </md-nav-list>
 
-<div class="container">
-
-  <div class="row">
-
-    <div class="col-md-12">
+    </md-toolbar>
+    <div class="container">
       <router-outlet></router-outlet>
     </div>
-
   </div>
 
-</div>
+  <md-sidenav #sidenav class="sidenav">
+    <md-nav-list>
+      <md-list-item (click)="sidenav.close()" [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <span md-line>Мои Посты</span>
+      </md-list-item>
+      <md-list-item (click)="sidenav.close()" [routerLink]="['/manage']" routerLinkActive="active">
+        <span md-line>Посты Друзей</span>
+      </md-list-item>
+      <md-list-item (click)="sidenav.close()" [routerLink]="['/request']" routerLinkActive="active">
+        <span md-line>Подписки</span>
+      </md-list-item>
+    </md-nav-list>
+  </md-sidenav>
+</md-sidenav-container>

@@ -3,12 +3,17 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 
 import { AppComponent } from './app.component';
+import { SignupStep1Component } from './auth/signup/signup-step1/signup-step1.component';
+
+
+
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { SignupComponent } from './auth/signup/signup.component';
@@ -21,8 +26,12 @@ import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth-guard.service';
 import { InventoryService } from './inventory/inventory.service';
 
-import { AlertModule } from 'ngx-bootstrap';
 import { AddComponent } from './inventory/add/add.component';
+import { MaterialModule, MdButtonModule, MdIconModule, MdListModule, MdSidenavModule,
+  MdToolbarModule
+} from '@angular/material';
+import { SignupStep2Component } from './auth/signup/signup-step2/signup-step2.component';
+
 
 // Initialize Firebase
 export const firebaseConfig = {
@@ -35,18 +44,18 @@ export const firebaseConfig = {
 };
 
 const appRoutes: Routes = [
-  { path: "", component: HomeComponent },
-  { path: "manage", component: ManageComponent, canActivate: [AuthGuard]},
-  { path: "request", component: RequestComponent, canActivate: [AuthGuard] },
-  { path: "approve", component: ApproveComponent, canActivate: [AuthGuard] },
-  { path: "signin", component: SigninComponent },
-  { path: "signup", component: SignupComponent },
-  { path: "add", component: AddComponent, canActivate: [AuthGuard] }
+  { path: '', component: HomeComponent },
+  { path: 'signup', component: SignupComponent, children: [
+    {path: 'step1', component: SignupStep1Component},
+    {path: 'step2', component: SignupStep2Component},
+  ]},
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
+    SignupStep1Component,
+    SignupStep2Component,
     HomeComponent,
     HeaderComponent,
     SignupComponent,
@@ -60,9 +69,15 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot(appRoutes),
     AngularFireModule.initializeApp(firebaseConfig),
-    AlertModule.forRoot(),
+    /*Material section*/
+    MdSidenavModule,
+    MdToolbarModule,
+    MdButtonModule,
+    MdIconModule,
+    MdListModule,
   ],
   providers: [AuthService, AngularFireAuth, AuthGuard, AngularFireDatabase, InventoryService],
   bootstrap: [AppComponent]
