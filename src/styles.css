@@ -17,6 +17,10 @@ html {
   -ms-overflow-style: scrollbar;
 }
 
+body{
+  font-family: Roboto,"Helvetica Neue",sans-serif;
+}
+
 *,
 *::before,
 *::after {
@@ -30,7 +34,10 @@ html {
   margin-right: auto;
   padding-right: 15px;
   padding-left: 15px;
+  display: flex;
+  flex-direction: column;
 }
+
 
 @media (min-width: 576px) {
   .container {
@@ -103,4 +110,8 @@ html {
   height: 18px;
   line-height: 1;
   padding: 0;
+}
+
+.form-group {
+  display: block;
 }
