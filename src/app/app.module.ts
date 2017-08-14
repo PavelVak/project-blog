@@ -53,8 +53,8 @@ export const firebaseConfig = {
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'signup', component: SignupComponent, children: [
-    {path: 'step1', component: SignupStep1Component},
-    {path: 'step2', component: SignupStep2Component},
+    {path: '', component: SignupStep1Component},
+    {path: 'userData', component: SignupStep2Component},
   ]},
 ];
 

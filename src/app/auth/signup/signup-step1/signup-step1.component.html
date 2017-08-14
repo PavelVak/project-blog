@@ -1,5 +1,5 @@
 <h3>{{pageTitle}}</h3>
-<form [formGroup]="signUpFormStep1">
+<form [formGroup]="signUpFormStep1" (ngSubmit)="submitFormData()">
   <md-input-container class="form-group">
     <input mdInput placeholder="Email" type="email" formControlName="email">
     <md-error *ngIf="displayMessage.email">
@@ -13,7 +13,7 @@
     </md-error>
   </md-input-container>
   <div class="form-group">
-    <button md-button class="btn" [disabled]='!signUpFormStep1.valid'>Click me!</button>
+    <button md-button class="btn" [disabled]='!signUpFormStep1.valid' type="submit">Submit</button>
   </div>
 </form>
 

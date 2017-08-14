@@ -7,7 +7,6 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/observable/merge';
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
@@ -19,9 +18,8 @@ const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA
 export class SignupStep1Component implements OnInit, AfterViewInit {
   @ViewChildren(FormControlName, { read: ElementRef }) formInputElements: ElementRef[];
 
-  pageTitle: string = 'Шаг 1';
+  pageTitle: string = 'Step 1';
   signUpFormStep1: FormGroup;
-  errorMessage: string;
 
   // Use with the generic validation message class
   displayMessage: { [key: string]: string } = {};
@@ -67,5 +65,10 @@ export class SignupStep1Component implements OnInit, AfterViewInit {
     Observable.merge(this.signUpFormStep1.valueChanges, ...controlBlurs).debounceTime(100).subscribe(value => {
       this.displayMessage = this.genericValidator.processMessages(this.signUpFormStep1);
     });
+  }
+
+  submitFormData() {
+    console.log('переход на второй шаг');
+    this.router.navigate(['/signup/userData']);
   }
 }

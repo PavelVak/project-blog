@@ -1,1 +1,18 @@
-<p>step 2 work</p>
+<h3>{{pageTitle}}</h3>
+<form [formGroup]="signUpFormStep2" (ngSubmit)="submitFormData()">
+  <md-input-container class="form-group">
+    <input mdInput placeholder="First Name" type="text" formControlName="firstName">
+    <md-error *ngIf="displayMessage.firstName">
+      {{displayMessage.firstName}}
+    </md-error>
+  </md-input-container>
+  <md-input-container class="form-group">
+    <input mdInput placeholder="Last Name" type="text" formControlName="lastName">
+    <md-error *ngIf="displayMessage.lastName">
+    {{displayMessage.lastName}}
+    </md-error>
+  </md-input-container>
+  <div class="form-group">
+    <button md-button class="btn" [disabled]='!signUpFormStep2.valid' type="submit">Submit</button>
+  </div>
+</form>
