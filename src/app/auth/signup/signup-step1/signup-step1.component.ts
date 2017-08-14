@@ -7,6 +7,7 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/observable/merge';
 import { Observable } from 'rxjs/Observable';
+import { AuthService } from '../../auth.service';
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
@@ -26,7 +27,7 @@ export class SignupStep1Component implements OnInit, AfterViewInit {
   private validationMessages: { [key: string]: { [key: string]: string } };
   private genericValidator: GenericValidator;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) {
 
     // Defines all of the validation messages for the form.
     // These could instead be retrieved from a file or database.
@@ -58,7 +59,7 @@ export class SignupStep1Component implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     // Watch for the blur event from any input element on the form.
-    let controlBlurs: Observable<any>[] = this.formInputElements
+    const controlBlurs: Observable<any>[] = this.formInputElements
       .map((formControl: ElementRef) => Observable.fromEvent(formControl.nativeElement, 'blur'));
 
     // Merge the blur event observable with the valueChanges observable
@@ -68,7 +69,9 @@ export class SignupStep1Component implements OnInit, AfterViewInit {
   }
 
   submitFormData() {
-    console.log('переход на второй шаг');
+    const email = this.signUpFormStep1.get('email').value;
+    const password = this.signUpFormStep1.get('password').value;
+    this.authService.setFirstStepData(email, password);
     this.router.navigate(['/signup/userData']);
   }
 }

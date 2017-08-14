@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SharedModule } from './shared/shared.module';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabase } from 'angularfire2/database';
@@ -17,7 +18,6 @@ import { SignupStep2Component } from './auth/signup/signup-step2/signup-step2.co
 
 
 import { HomeComponent } from './home/home.component';
-import { HeaderComponent } from './header/header.component';
 
 import { SigninComponent } from './auth/signin/signin.component';
 import { RequestComponent } from './inventory/request/request.component';
@@ -29,14 +29,15 @@ import { AuthGuard } from './auth/auth-guard.service';
 import { InventoryService } from './inventory/inventory.service';
 
 import { AddComponent } from './inventory/add/add.component';
-import {
-  MaterialModule, MdAutocompleteModule, MdButtonModule, MdButtonToggleModule, MdCardModule, MdCheckboxModule,
-  MdChipsModule, MdCoreModule, MdDatepickerModule, MdDialogModule, MdExpansionModule, MdGridListModule,
-  MdIconModule, MdInputModule, MdListModule, MdMenuModule, MdNativeDateModule, MdPaginatorModule, MdProgressBarModule,
-  MdProgressSpinnerModule, MdRadioModule, MdRippleModule, MdSelectModule,
-  MdSidenavModule, MdSliderModule, MdSlideToggleModule, MdSnackBarModule, MdSortModule, MdTableModule, MdTabsModule,
-  MdToolbarModule, MdTooltipModule
-} from '@angular/material';
+// import {
+//   MaterialModule, MdAutocompleteModule, MdButtonModule, MdButtonToggleModule, MdCardModule, MdCheckboxModule,
+//   MdChipsModule, MdCoreModule, MdDatepickerModule, MdDialogModule, MdExpansionModule, MdGridListModule,
+//   MdIconModule, MdInputModule, MdListModule, MdMenuModule, MdNativeDateModule, MdPaginatorModule, MdProgressBarModule,
+//   MdProgressSpinnerModule, MdRadioModule, MdRippleModule, MdSelectModule,
+//   MdSidenavModule, MdSliderModule, MdSlideToggleModule, MdSnackBarModule, MdSortModule, MdTableModule, MdTabsModule,
+//   MdToolbarModule, MdTooltipModule
+// } from '@angular/material';
+
 
 
 
@@ -65,7 +66,6 @@ const appRoutes: Routes = [
     SignupStep1Component,
     SignupStep2Component,
     HomeComponent,
-    HeaderComponent,
     SignupComponent,
     SigninComponent,
     RequestComponent,
@@ -81,38 +81,42 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     AngularFireModule.initializeApp(firebaseConfig),
     ReactiveFormsModule,
+    SharedModule,
     /*Material section*/
-    MdAutocompleteModule,
-    MdButtonModule,
-    MdButtonToggleModule,
-    MdCardModule,
-    MdCheckboxModule,
-    MdChipsModule,
-    MdCoreModule,
-    MdDatepickerModule,
-    MdDialogModule,
-    MdExpansionModule,
-    MdGridListModule,
-    MdIconModule,
-    MdInputModule,
-    MdListModule,
-    MdMenuModule,
-    MdNativeDateModule,
-    MdPaginatorModule,
-    MdProgressBarModule,
-    MdProgressSpinnerModule,
-    MdRadioModule,
-    MdRippleModule,
-    MdSelectModule,
-    MdSidenavModule,
-    MdSliderModule,
-    MdSlideToggleModule,
-    MdSnackBarModule,
-    MdSortModule,
-    MdTableModule,
-    MdTabsModule,
-    MdToolbarModule,
-    MdTooltipModule,
+    // MdAutocompleteModule,
+    // MdButtonModule,
+    // MdButtonToggleModule,
+    // MdCardModule,
+    // MdCheckboxModule,
+    // MdChipsModule,
+    // MdCoreModule,
+    // MdDatepickerModule,
+    // MdDialogModule,
+    // MdExpansionModule,
+    // MdGridListModule,
+    // MdIconModule,
+    // MdInputModule,
+    // MdListModule,
+    // MdMenuModule,
+    // MdNativeDateModule,
+    // MdPaginatorModule,
+    // MdProgressBarModule,
+    // MdProgressSpinnerModule,
+    // MdRadioModule,
+    // MdRippleModule,
+    // MdSelectModule,
+    // MdSidenavModule,
+    // MdSliderModule,
+    // MdSlideToggleModule,
+    // MdSnackBarModule,
+    // MdSortModule,
+    // MdTableModule,
+    // MdTabsModule,
+    // MdToolbarModule,
+    // MdTooltipModule,
+  ],
+  exports: [
+    RouterModule
   ],
   providers: [AuthService, AngularFireAuth, AuthGuard, AngularFireDatabase, InventoryService],
   bootstrap: [AppComponent]

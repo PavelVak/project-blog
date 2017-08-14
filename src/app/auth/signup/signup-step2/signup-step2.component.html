@@ -1,6 +1,12 @@
 <h3>{{pageTitle}}</h3>
 <form [formGroup]="signUpFormStep2" (ngSubmit)="submitFormData()">
   <md-input-container class="form-group">
+    <input mdInput placeholder="DisplayName" type="text" formControlName="displayName">
+    <md-error *ngIf="displayMessage.displayName">
+      {{displayMessage.displayName}}
+    </md-error>
+  </md-input-container>
+  <md-input-container class="form-group">
     <input mdInput placeholder="First Name" type="text" formControlName="firstName">
     <md-error *ngIf="displayMessage.firstName">
       {{displayMessage.firstName}}
