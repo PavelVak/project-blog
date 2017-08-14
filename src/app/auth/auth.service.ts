@@ -43,7 +43,7 @@ export class AuthService {
       .then(
         response => {
           this.router.navigate(['/']);
-          this.af.auth.currentUser.getToken()
+          this.af.auth.currentUser.getIdToken()
             .then(
               (token: string) =>  {
                 localStorage.setItem('token',token);
@@ -63,8 +63,7 @@ export class AuthService {
     this.af.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
       .then(
         response => {
-          this.router.navigate(['/']);
-          this.af.auth.currentUser.getToken()
+          this.af.auth.currentUser.getIdToken()
             .then(
               (token: string) => {
                 localStorage.setItem('token',token)

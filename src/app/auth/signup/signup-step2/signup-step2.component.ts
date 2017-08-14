@@ -66,4 +66,9 @@ export class SignupStep2Component implements OnInit, AfterViewInit {
       this.displayMessage = this.genericValidator.processMessages(this.signUpFormStep2);
     });
   }
+
+  submitFormData() {
+    console.log('переход на signin');
+    this.router.navigate(['/signin']);
+  }
 }

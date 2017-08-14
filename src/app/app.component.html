@@ -17,14 +17,16 @@
           <span>Login</span>
           <i class="fa fa-sign-in" aria-hidden="true"></i>
         </md-list-item>
-        <md-list-item md-line>
+        <md-list-item md-line (click)="onLogOut()">
           <span>Logout</span>
           <i class="fa fa-sign-out" aria-hidden="true"></i>
         </md-list-item>
       </md-nav-list>
 
     </md-toolbar>
+    <div class="container">
       <router-outlet></router-outlet>
+    </div>
   </div>
 
   <md-sidenav #sidenav class="sidenav">
