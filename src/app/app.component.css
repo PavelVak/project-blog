@@ -21,3 +21,7 @@
 i{
   margin: 0 5px;
 }
+
+.active-item{
+ color: red !important;
+}
