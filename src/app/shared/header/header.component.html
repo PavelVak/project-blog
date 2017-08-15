@@ -28,6 +28,9 @@
       <md-list-item (click)="sidenav.close()" [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
         <span md-line>Мои Посты</span>
       </md-list-item>
+      <md-list-item (click)="sidenav.close()" [routerLink]="['/blogAdd']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <span md-line>Добавить Пост</span>
+      </md-list-item>
       <md-list-item (click)="sidenav.close()" [routerLink]="['/signin']" routerLinkActive="active">
         <span md-line>Посты Друзей</span>
       </md-list-item>

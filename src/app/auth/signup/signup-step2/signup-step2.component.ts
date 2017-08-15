@@ -20,9 +20,6 @@ export class SignupStep2Component implements OnInit, AfterViewInit {
 
   pageTitle: string = 'Step 2';
   signUpFormStep2: FormGroup;
-
-
-
   // Use with the generic validation message class
   displayMessage: { [key: string]: string } = {};
   private validationMessages: { [key: string]: { [key: string]: string } };

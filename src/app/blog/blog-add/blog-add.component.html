@@ -1,0 +1,18 @@
+<h3>{{pageTitle}}</h3>
+<form [formGroup]="blogAddForm" (ngSubmit)="submitFormData();">
+  <md-input-container class="form-group">
+    <input mdInput placeholder="Blog Head" type="text" formControlName="blogHead">
+    <md-error *ngIf="displayMessage.blogHead">
+      {{displayMessage.blogHead}}
+    </md-error>
+  </md-input-container>
+  <md-input-container class="form-group">
+    <textarea mdInput cols="30" rows="5" placeholder="Blog Content" formControlName="blogContent"></textarea>
+    <md-error *ngIf="displayMessage.blogContent">
+      {{displayMessage.blogContent}}
+    </md-error>
+  </md-input-container>
+  <div class="form-group">
+    <button md-button class="btn" [disabled]='!blogAddForm.valid' type="submit">Add Blog</button>
+  </div>
+</form>

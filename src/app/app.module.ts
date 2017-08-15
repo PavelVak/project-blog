@@ -25,6 +25,8 @@ import { AuthGuard } from './auth/auth-guard.service';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { UserService } from './user/user.service';
+import { BlogModule } from './blog/blog.module';
+import { BlogAddComponent } from './blog/blog-add/blog-add.component';
 
 // Initialize Firebase
 export const firebaseConfig = {
@@ -45,6 +47,7 @@ const appRoutes: Routes = [
   { path: 'signin', component: SigninComponent },
   { path: 'userprofile', component: UserProfileComponent },
   { path: 'useredit', component: UserEditComponent },
+  { path: 'blogAdd', component: BlogAddComponent },
 ];
 
 @NgModule({
@@ -68,6 +71,7 @@ const appRoutes: Routes = [
     AngularFireModule.initializeApp(firebaseConfig),
     ReactiveFormsModule,
     SharedModule,
+    BlogModule
   ],
   exports: [
     RouterModule
