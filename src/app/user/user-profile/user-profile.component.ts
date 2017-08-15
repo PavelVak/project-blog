@@ -1,22 +1,21 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from '../../auth/auth.service';
-import { User } from "../models/user.model";
+import { User } from '../../shared/models/user.model';
 import { Subscription } from 'rxjs/Subscription';
+import { AuthService } from '../../auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  selector: 'app-user-profile',
+  templateUrl: './user-profile.component.html',
+  styleUrls: ['./user-profile.component.css']
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class UserProfileComponent implements OnInit, OnDestroy {
   user: User;
   subscription: Subscription;
 
   constructor(private authservice: AuthService, private router: Router) {}
 
   ngOnInit() {
-    console.log('2');
     this.subscription = this.authservice.getMessage().subscribe(user => { this.user = user});
   }
 
@@ -24,8 +23,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  onLogOut() {
-    this.authservice.logout();
-    this.router.navigate(['/signin']);
+  onRedact() {
+    this.router.navigate(['/useredit']);
   }
+
 }

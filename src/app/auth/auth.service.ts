@@ -7,6 +7,10 @@ import * as firebase from 'firebase/app';
 import { SignUpModel } from '../shared/models/signup.model';
 import { User } from '../shared/models/user.model';
 
+import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import 'rxjs/add/operator/map';
+
 @Injectable()
 export class AuthService {
   signUpData: SignUpModel = new SignUpModel();
@@ -14,14 +18,31 @@ export class AuthService {
   user: User ;
   users: FirebaseListObservable<any[]>;
 
+  /*!!!!!!!!!!!!!!!!!subject section!!!!!!!!!!!!!!!!!!!!!!*/
+  private subject = new BehaviorSubject<any>(null);
+
+  sendMessage(user: User) {
+    console.log('1');
+    this.subject.next(user);
+  }
+  clearMessage(){
+    this.subject.next(null);
+  }
+
+  getMessage(): Observable<any> {
+    return this.subject.asObservable();
+  }
+  /*!!!!!!!!!!!!!!!end subject section!!!!!!!!!!!!!!!!!!!!!*/
+
   constructor(private router: Router, private af: AngularFireAuth, private db: AngularFireDatabase) {
     this.users = this.db.list('/users');
+    this.user = JSON.parse(localStorage.getItem('currentUser'));
+    this.sendMessage(this.user);
   }
 
   setFirstStepData(email: string, password: string) {
     this.signUpData.email = email;
     this.signUpData.password = password;
-    console.log(this.signUpData);
   }
 
   setPersonalData(displayName: string, firstName: string, lastName: string) {
@@ -34,9 +55,7 @@ export class AuthService {
         const user: any = this.af.auth.currentUser;
         user.sendEmailVerification().then(
           (success) => {
-            // const userToCreate = {};
-            // userToCreate[user.uid] = this.signUpData;
-            this.db.object('/users/' + user.uid).update(this.signUpData);
+            this.db.object('/users/' + user.uid).update(new User(this.signUpData.displayName, this.signUpData.email, this.signUpData.firstName, this.signUpData.lastName));
             console.log('please verify your email');
             alert('please verify your email');
             this.router.navigate(['/signin']);
@@ -63,14 +82,15 @@ export class AuthService {
       .then(
         response => {
           this.router.navigate(['/']);
-          console.log(this.af.auth.currentUser);
+          this.getCurrentUser();
           this.af.auth.currentUser.getIdToken()
             .then(
               (token: string) =>  {
                 localStorage.setItem('token', token);
                 localStorage.setItem('uid', this.af.auth.currentUser.uid);
-                localStorage.setItem('email', this.af.auth.currentUser.email);
-                localStorage.setItem('displayname', this.af.auth.currentUser.displayName);
+                localStorage.setItem('currentUser', JSON.stringify(this.user));
+                this.user = JSON.parse(localStorage.getItem('currentUser'));
+                this.sendMessage(this.user);
               }
             )
         }
@@ -84,13 +104,15 @@ export class AuthService {
     this.af.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
       .then(
         response => {
+          this.getCurrentUser();
           this.af.auth.currentUser.getIdToken()
             .then(
               (token: string) => {
-                localStorage.setItem('token',token)
+                localStorage.setItem('token',token);
                 localStorage.setItem('uid',this.af.auth.currentUser.uid);
-                localStorage.setItem('email',this.af.auth.currentUser.email);
-                localStorage.setItem('displayname',this.af.auth.currentUser.displayName);
+                localStorage.setItem('currentUser', JSON.stringify(this.user));
+                this.user = JSON.parse(localStorage.getItem('currentUser'));
+                this.sendMessage(this.user);
               }
             )
         }
@@ -103,6 +125,7 @@ export class AuthService {
   logout() {
     this.af.auth.signOut();
     localStorage.clear();
+    this.clearMessage();
   }
 
   getEmail(){
@@ -117,4 +140,26 @@ export class AuthService {
     return localStorage.getItem('token') != null;
   }
 
+  getCurrentUser(){
+    const key = this.af.auth.currentUser.uid;
+    return this.users.map(
+      (data) => data.map(x => x as User).filter(x => x.$key == key)
+    ).subscribe(data => {this.user = new User(data[0].displayName, data[0].email, data[0].firstName, data[0].lastName); localStorage.setItem('currentUser', JSON.stringify(this.user));});
+  }
+
+  editCurrentUser(user: User){
+    const key = this.af.auth.currentUser.uid;
+    this.db.object('users/'+key).update(user);
+    this.user = user;
+    const currentEmail = this.af.auth.currentUser.email;
+    if(currentEmail !== this.user.email){
+      this.af.auth.currentUser.updateEmail(this.user.email).then(function() {
+        console.log('email update');
+      }).catch(function(error) {
+        console.log('email not update');
+      });
+    }
+    localStorage.setItem('currentUser', JSON.stringify(this.user));
+    this.sendMessage(this.user);
+  }
 }

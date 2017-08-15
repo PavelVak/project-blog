@@ -8,15 +8,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  constructor(private authservice: AuthService, private router: Router) {}
+  constructor() {}
 
   ngOnInit() {
 
   }
 
-  onLogOut() {
-    debugger;
-    this.authservice.logout();
-    this.router.navigate(['/signin']);
-  }
 }

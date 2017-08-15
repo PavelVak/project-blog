@@ -9,6 +9,7 @@ import 'rxjs/add/observable/merge';
 import { Observable } from 'rxjs/Observable';
 import { AuthService } from '../../auth.service';
 
+
 @Component({
   selector: 'app-signup-step2',
   templateUrl: './signup-step2.component.html',
@@ -80,4 +81,5 @@ export class SignupStep2Component implements OnInit, AfterViewInit {
     const lastName = this.signUpFormStep2.get('lastName').value;
     this.authService.setPersonalData(displayName, firstName, lastName);
   }
+
 }

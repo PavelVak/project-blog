@@ -4,9 +4,9 @@
       <md-icon>menu</md-icon>
     </button>
     <md-nav-list class="user-bar">
-      <md-list-item md-line>
+      <md-list-item md-line [routerLink]="['/userprofile']" routerLinkActive="active-item">
         <i class="fa fa-user" aria-hidden="true"></i>
-        <span>username</span>
+        <span>{{user?.displayName || 'username'}}</span>
       </md-list-item>
       <md-list-item md-line [routerLink]="['/signup']" routerLinkActive="active-item">
         <span>Sign Up</span>

@@ -15,31 +15,16 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { SignupStep1Component } from './auth/signup/signup-step1/signup-step1.component';
 import { SignupStep2Component } from './auth/signup/signup-step2/signup-step2.component';
 
-
-
 import { HomeComponent } from './home/home.component';
 
 import { SigninComponent } from './auth/signin/signin.component';
-import { RequestComponent } from './inventory/request/request.component';
-import { ManageComponent } from './inventory/manage/manage.component';
-import { ApproveComponent } from './inventory/approve/approve.component';
 
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth-guard.service';
-import { InventoryService } from './inventory/inventory.service';
 
-import { AddComponent } from './inventory/add/add.component';
-// import {
-//   MaterialModule, MdAutocompleteModule, MdButtonModule, MdButtonToggleModule, MdCardModule, MdCheckboxModule,
-//   MdChipsModule, MdCoreModule, MdDatepickerModule, MdDialogModule, MdExpansionModule, MdGridListModule,
-//   MdIconModule, MdInputModule, MdListModule, MdMenuModule, MdNativeDateModule, MdPaginatorModule, MdProgressBarModule,
-//   MdProgressSpinnerModule, MdRadioModule, MdRippleModule, MdSelectModule,
-//   MdSidenavModule, MdSliderModule, MdSlideToggleModule, MdSnackBarModule, MdSortModule, MdTableModule, MdTabsModule,
-//   MdToolbarModule, MdTooltipModule
-// } from '@angular/material';
-
-
-
+import { UserProfileComponent } from './user/user-profile/user-profile.component';
+import { UserEditComponent } from './user/user-edit/user-edit.component';
+import { UserService } from './user/user.service';
 
 // Initialize Firebase
 export const firebaseConfig = {
@@ -58,6 +43,8 @@ const appRoutes: Routes = [
     {path: 'userData', component: SignupStep2Component},
   ]},
   { path: 'signin', component: SigninComponent },
+  { path: 'userprofile', component: UserProfileComponent },
+  { path: 'useredit', component: UserEditComponent },
 ];
 
 @NgModule({
@@ -68,10 +55,9 @@ const appRoutes: Routes = [
     HomeComponent,
     SignupComponent,
     SigninComponent,
-    RequestComponent,
-    ManageComponent,
-    ApproveComponent,
-    AddComponent
+    /*user section*/
+    UserProfileComponent,
+    UserEditComponent,
   ],
   imports: [
     BrowserModule,
@@ -82,43 +68,11 @@ const appRoutes: Routes = [
     AngularFireModule.initializeApp(firebaseConfig),
     ReactiveFormsModule,
     SharedModule,
-    /*Material section*/
-    // MdAutocompleteModule,
-    // MdButtonModule,
-    // MdButtonToggleModule,
-    // MdCardModule,
-    // MdCheckboxModule,
-    // MdChipsModule,
-    // MdCoreModule,
-    // MdDatepickerModule,
-    // MdDialogModule,
-    // MdExpansionModule,
-    // MdGridListModule,
-    // MdIconModule,
-    // MdInputModule,
-    // MdListModule,
-    // MdMenuModule,
-    // MdNativeDateModule,
-    // MdPaginatorModule,
-    // MdProgressBarModule,
-    // MdProgressSpinnerModule,
-    // MdRadioModule,
-    // MdRippleModule,
-    // MdSelectModule,
-    // MdSidenavModule,
-    // MdSliderModule,
-    // MdSlideToggleModule,
-    // MdSnackBarModule,
-    // MdSortModule,
-    // MdTableModule,
-    // MdTabsModule,
-    // MdToolbarModule,
-    // MdTooltipModule,
   ],
   exports: [
     RouterModule
   ],
-  providers: [AuthService, AngularFireAuth, AuthGuard, AngularFireDatabase, InventoryService],
+  providers: [AuthService, UserService, AngularFireAuth, AuthGuard, AngularFireDatabase],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
