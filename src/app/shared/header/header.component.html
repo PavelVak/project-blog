@@ -1,22 +1,22 @@
 <md-sidenav-container class="blog-container">
   <md-toolbar color="primary">
-    <button md-icon-button class="nav-button" (click)="sidenav.open()">
+    <button md-icon-button class="nav-button" (click)="sidenav.open()" *ngIf="user">
       <md-icon>menu</md-icon>
     </button>
     <md-nav-list class="user-bar">
-      <md-list-item md-line [routerLink]="['/userprofile']" routerLinkActive="active-item">
+      <md-list-item md-line [routerLink]="['/userprofile']" routerLinkActive="active-item" *ngIf="user">
         <i class="fa fa-user" aria-hidden="true"></i>
         <span>{{user?.displayName || 'username'}}</span>
       </md-list-item>
-      <md-list-item md-line [routerLink]="['/signup']" routerLinkActive="active-item">
+      <md-list-item md-line [routerLink]="['/signup']" routerLinkActive="active-item" *ngIf="!user">
         <span>Sign Up</span>
         <i class="fa fa-user-plus" aria-hidden="true"></i>
       </md-list-item>
-      <md-list-item md-line [routerLink]="['/signin']" routerLinkActive="active-item">
+      <md-list-item md-line [routerLink]="['/signin']" routerLinkActive="active-item" *ngIf="!user">
         <span>Login</span>
         <i class="fa fa-sign-in" aria-hidden="true"></i>
       </md-list-item>
-      <md-list-item md-line (click)="onLogOut()">
+      <md-list-item md-line (click)="onLogOut()" *ngIf="user">
         <span>Logout</span>
         <i class="fa fa-sign-out" aria-hidden="true"></i>
       </md-list-item>
@@ -25,7 +25,7 @@
   <ng-content></ng-content>
   <md-sidenav #sidenav class="sidenav">
     <md-nav-list>
-      <md-list-item (click)="sidenav.close()" [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+      <md-list-item (click)="sidenav.close()" [routerLink]="['/blogList']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
         <span md-line>Мои Посты</span>
       </md-list-item>
       <md-list-item (click)="sidenav.close()" [routerLink]="['/blogAdd']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">

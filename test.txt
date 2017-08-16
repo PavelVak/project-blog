@@ -1,0 +1,14 @@
+export let routesList = {
+  home: { path: '', component: HomeComponent },
+  signUp: { path: 'signup', component: SignupComponent, children: [
+    {path: '', component: SignupStep1Component},
+    {path: 'userData', component: SignupStep2Component},
+  ]},
+  signIn:{ path: 'signin', component: SigninComponent },
+  userProfile:{ path: 'userprofile', component: UserProfileComponent },
+  userEdit:{ path: 'useredit', component: UserEditComponent },
+  blogAdd:{ path: 'blogAdd', component: BlogAddComponent },
+  blogList:{ path: 'blogList', component: BlogListComponent},
+  blogItem:{ path: 'blogList/:key', component: BlogItemDetailComponent},
+  blogEdit:{ path: 'blogEdit/:key', component: BlogEditComponent},
+}

@@ -27,6 +27,9 @@ import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { UserService } from './user/user.service';
 import { BlogModule } from './blog/blog.module';
 import { BlogAddComponent } from './blog/blog-add/blog-add.component';
+import { BlogListComponent } from './blog/blog-list/blog-list.component';
+import { BlogItemDetailComponent } from './blog/blog-item-detail/blog-item-detail.component';
+import { BlogEditComponent } from './blog/blog-edit/blog-edit.component';
 
 // Initialize Firebase
 export const firebaseConfig = {
@@ -46,8 +49,11 @@ const appRoutes: Routes = [
   ]},
   { path: 'signin', component: SigninComponent },
   { path: 'userprofile', component: UserProfileComponent },
-  { path: 'useredit', component: UserEditComponent },
+  { path: 'userEdit', component: UserEditComponent },
   { path: 'blogAdd', component: BlogAddComponent },
+  { path: 'blogList', component: BlogListComponent},
+  { path: 'blogList/:key', component: BlogItemDetailComponent},
+  { path: 'blogEdit/:key', component: BlogEditComponent},
 ];
 
 @NgModule({

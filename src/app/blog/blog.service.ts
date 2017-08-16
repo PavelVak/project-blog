@@ -20,8 +20,23 @@ export class BlogService {
     );
   }
 
+  getBlogBykey(key: string) {
+    return this.blogs.map(
+      (data) => data.find(x => x.$key == key)
+    );
+  }
+
+  deleteBlogByKey($key: string) {
+    this.blogs.remove($key);
+  }
+
   addBlog(blog: Blog) {
    this.blogs.push(blog);
+  }
+
+  editBlog(key: string, authorKey: string,  blog: Blog) {
+    this.db.object('users/' + authorKey + '/blogs/' +key).update(blog);
+
   }
 
 }

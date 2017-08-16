@@ -24,7 +24,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   }
 
   onRedact() {
-    this.router.navigate(['/useredit']);
+    this.router.navigate(['/userEdit']);
   }
 
 }

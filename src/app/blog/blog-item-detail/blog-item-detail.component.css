@@ -1,0 +1,17 @@
+:host {
+  border: 1px solid #ccc;
+  padding: 15px;
+  margin-top: 40px;
+}
+
+.btn-holder {
+  padding: 10px;
+}
+
+.btn {
+  background: #3f51b5;
+  color: rgba(255,255,255,.87);
+}
+.btn-alert {
+  background: #b22222;
+}

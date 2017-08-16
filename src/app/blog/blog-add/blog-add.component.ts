@@ -12,7 +12,7 @@ import { Blog } from '../../shared/models/blog.model';
 })
 export class BlogAddComponent implements OnInit, AfterViewInit {
   @ViewChildren(FormControlName, { read: ElementRef }) formInputElements: ElementRef[];
-  pageTitle: string = 'Добавить пост';
+  pageTitle: string = 'Add Blog';
   blogAddForm: FormGroup;
 
   // Use with the generic validation message class

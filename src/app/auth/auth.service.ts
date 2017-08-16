@@ -25,6 +25,7 @@ export class AuthService {
     console.log('1');
     this.subject.next(user);
   }
+
   clearMessage(){
     this.subject.next(null);
   }
@@ -37,7 +38,7 @@ export class AuthService {
   constructor(private router: Router, private af: AngularFireAuth, private db: AngularFireDatabase) {
     this.users = this.db.list('/users');
     this.user = JSON.parse(localStorage.getItem('currentUser'));
-    this.sendMessage(this.user);
+    //this.sendMessage(this.user);
   }
 
   setFirstStepData(email: string, password: string) {
@@ -51,27 +52,27 @@ export class AuthService {
     this.signUpData.lastName = lastName;
     this.af.auth.createUserWithEmailAndPassword(this.signUpData.email, this.signUpData.password)
       .then(
-      (success) => {
-        const user: any = this.af.auth.currentUser;
-        user.sendEmailVerification().then(
-          (success) => {
-            this.db.object('/users/' + user.uid).update(new User(this.signUpData.displayName, this.signUpData.email, this.signUpData.firstName, this.signUpData.lastName));
-            console.log('please verify your email');
-            alert('please verify your email');
-            this.router.navigate(['/signin']);
-          }
-        ).catch(
-          (err) => {
-            console.log('Error:' + err);
-            alert('Error:' + err);
-          }
-        );
+        (success) => {
+          const user: any = this.af.auth.currentUser;
+          user.sendEmailVerification().then(
+            (success) => {
+              this.db.object('/users/' + user.uid).update(new User(this.signUpData.displayName, this.signUpData.email, this.signUpData.firstName, this.signUpData.lastName));
+              console.log('please verify your email');
+              alert('please verify your email');
+              this.router.navigate(['/signin']);
+            }
+          ).catch(
+            (err) => {
+              console.log('Error:' + err);
+              alert('Error:' + err);
+            }
+          );
 
-        user.updateProfile({
-          displayName: displayName
-        });
+          user.updateProfile({
+            displayName: displayName
+          });
 
-      })
+        })
       .catch(
         error => alert(error.message)
       );
@@ -82,15 +83,12 @@ export class AuthService {
       .then(
         response => {
           this.router.navigate(['/']);
-          this.getCurrentUser();
+          this.getCurrentUser().subscribe(() => {this.sendMessage(this.user);});
           this.af.auth.currentUser.getIdToken()
             .then(
               (token: string) =>  {
                 localStorage.setItem('token', token);
                 localStorage.setItem('uid', this.af.auth.currentUser.uid);
-                localStorage.setItem('currentUser', JSON.stringify(this.user));
-                this.user = JSON.parse(localStorage.getItem('currentUser'));
-                this.sendMessage(this.user);
               }
             )
         }
@@ -104,15 +102,13 @@ export class AuthService {
     this.af.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
       .then(
         response => {
-          this.getCurrentUser();
+          this.getCurrentUser().subscribe(() => {this.sendMessage(this.user);});
           this.af.auth.currentUser.getIdToken()
             .then(
               (token: string) => {
                 localStorage.setItem('token',token);
                 localStorage.setItem('uid',this.af.auth.currentUser.uid);
                 localStorage.setItem('currentUser', JSON.stringify(this.user));
-                this.user = JSON.parse(localStorage.getItem('currentUser'));
-                this.sendMessage(this.user);
               }
             )
         }
@@ -141,14 +137,14 @@ export class AuthService {
   }
 
   isAuthenticated() {
-    return localStorage.getItem('token') != null;
+    return !!localStorage.getItem('token');
   }
 
   getCurrentUser(){
     const key = this.af.auth.currentUser.uid;
     return this.users.map(
       (data) => data.map(x => x as User).filter(x => x.$key == key)
-    ).subscribe(data => {this.user = new User(data[0].displayName, data[0].email, data[0].firstName, data[0].lastName); localStorage.setItem('currentUser', JSON.stringify(this.user));});
+    ).map(data => {this.user = new User(data[0].displayName, data[0].email, data[0].firstName, data[0].lastName); localStorage.setItem('currentUser', JSON.stringify(this.user));});
   }
 
   editCurrentUser(user: User){
