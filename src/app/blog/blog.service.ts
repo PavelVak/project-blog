@@ -15,6 +15,8 @@ export class BlogService {
   }
 
   getAllBlogs() {
+    this.key = this.authService.getUid();
+    this.blogs = this.db.list('users/' + this.key + '/blogs');
     return this.blogs.map(
       (data) => data.map(x => x as Blog)
     );
@@ -31,7 +33,9 @@ export class BlogService {
   }
 
   addBlog(blog: Blog) {
-   this.blogs.push(blog);
+    this.key = this.authService.getUid();
+    this.blogs = this.db.list('users/' + this.key + '/blogs');
+    this.blogs.push(blog);
   }
 
   editBlog(key: string, authorKey: string,  blog: Blog) {

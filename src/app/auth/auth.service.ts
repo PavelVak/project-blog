@@ -38,7 +38,7 @@ export class AuthService {
   constructor(private router: Router, private af: AngularFireAuth, private db: AngularFireDatabase) {
     this.users = this.db.list('/users');
     this.user = JSON.parse(localStorage.getItem('currentUser'));
-    //this.sendMessage(this.user);
+    this.sendMessage(this.user);
   }
 
   setFirstStepData(email: string, password: string) {
@@ -83,7 +83,8 @@ export class AuthService {
       .then(
         response => {
           this.router.navigate(['/']);
-          this.getCurrentUser().subscribe(() => {this.sendMessage(this.user);});
+          // this.getCurrentUser().subscribe(() => {this.sendMessage(this.user);});
+          this.getCurrentUser().subscribe(() => this.sendMessage(JSON.parse(localStorage.getItem('currentUser'))));
           this.af.auth.currentUser.getIdToken()
             .then(
               (token: string) =>  {
@@ -102,7 +103,8 @@ export class AuthService {
     this.af.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
       .then(
         response => {
-          this.getCurrentUser().subscribe(() => {this.sendMessage(this.user);});
+          // this.getCurrentUser().subscribe(() => {this.sendMessage(this.user);});
+          this.getCurrentUser().subscribe(() => this.sendMessage(JSON.parse(localStorage.getItem('currentUser'))));
           this.af.auth.currentUser.getIdToken()
             .then(
               (token: string) => {

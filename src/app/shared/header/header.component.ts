@@ -12,12 +12,8 @@ import { Subscription } from 'rxjs/Subscription';
 export class HeaderComponent implements OnInit, OnDestroy {
   user: User;
   subscription: Subscription;
-  isLogin: boolean;
 
-  constructor(private authservice: AuthService, private router: Router) {
-
-  }
-
+  constructor(private authservice: AuthService, private router: Router) {}
 
   ngOnInit() {
     this.subscription = this.authservice.getMessage().subscribe(user => {this.user = user; console.log('2', this.user)});

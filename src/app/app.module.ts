@@ -30,6 +30,8 @@ import { BlogAddComponent } from './blog/blog-add/blog-add.component';
 import { BlogListComponent } from './blog/blog-list/blog-list.component';
 import { BlogItemDetailComponent } from './blog/blog-item-detail/blog-item-detail.component';
 import { BlogEditComponent } from './blog/blog-edit/blog-edit.component';
+import { UsersListComponent } from './user/users-list/users-list.component';
+import { FollowersService } from './user/followers.service';
 
 // Initialize Firebase
 export const firebaseConfig = {
@@ -50,6 +52,7 @@ const appRoutes: Routes = [
   { path: 'signin', component: SigninComponent },
   { path: 'userprofile', component: UserProfileComponent },
   { path: 'userEdit', component: UserEditComponent },
+  { path: 'users-list', component: UsersListComponent },
   { path: 'blogAdd', component: BlogAddComponent },
   { path: 'blogList', component: BlogListComponent},
   { path: 'blogList/:key', component: BlogItemDetailComponent},
@@ -67,6 +70,7 @@ const appRoutes: Routes = [
     /*user section*/
     UserProfileComponent,
     UserEditComponent,
+    UsersListComponent,
   ],
   imports: [
     BrowserModule,
@@ -82,7 +86,7 @@ const appRoutes: Routes = [
   exports: [
     RouterModule
   ],
-  providers: [AuthService, UserService, AngularFireAuth, AuthGuard, AngularFireDatabase],
+  providers: [AuthService, UserService, FollowersService, AngularFireAuth, AuthGuard, AngularFireDatabase],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -2,7 +2,6 @@ import { Component, OnInit} from '@angular/core';
 import { BlogService } from '../blog.service';
 import { Blog } from '../../shared/models/blog.model';
 
-
 @Component({
   selector: 'app-blog-list',
   templateUrl: './blog-list.component.html',
@@ -16,10 +15,7 @@ export class BlogListComponent implements OnInit {
   constructor(private blogService: BlogService) {}
 
   ngOnInit() {
-    this.blogService.getAllBlogs().subscribe(
-      data => {this.blogList = data; console.log(this.blogList)}
-    );
+    this.blogService.getAllBlogs().subscribe(data => this.blogList = data);
   }
-
 
 }

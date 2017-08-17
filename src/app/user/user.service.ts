@@ -13,10 +13,15 @@ export class UserService{
   }
 
   getAllUsers() {
-    console.log(this.users);
     return this.users.map(
       (data) => data.map(x => x as User)
-    ).subscribe(data => console.log(data));
+    )
+  }
+
+  getUserByKey(key) {
+    return this.users.map(
+      (data) => data.map(x => x as User).filter(x => x.$key == key)
+    );
   }
 
   deleteUserByKey($key: string) {
