@@ -19,8 +19,6 @@ export class FollowersService {
     return this.followers;
   }
 
-
-
   getFollowerBykey(key: string) {
     return this.followers.map(
       (data) => data.find(x => x.$key == key)

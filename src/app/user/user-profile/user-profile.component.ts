@@ -39,26 +39,14 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   onAddFollower($event){
     let followerKey = this.user.$key;
-    this.followersService.addFollower(followerKey);
-    if($event.target.innerText == 'Add to Friends') {
-      $event.target.innerText = 'Remove from Friends';
-      this.isFriend = true;
+    if(!this.user.isFollower) {
+      this.followersService.addFollower(followerKey);
+      this.user.isFollower = true;
     } else {
-      $event.target.innerText = 'Add to Friends';
-      this.isFriend = false;
+      this.user.isFollower = false;
     }
   }
 
-  test(){
-    let keyArr: string[] = [];
-    let usersArr: User[] = [];
-    this.followersService.getAllFollowers().subscribe(data => {
-      keyArr = data.map(item => item.$value);
-      keyArr.forEach((key) => {
-         this.userService.getUserByKey(key).subscribe(data => usersArr.push(...data));
-      });
-    });
-    console.log('Мои друзья ', usersArr);
-  }
+
 
 }

@@ -89,9 +89,9 @@ export class UserEditComponent implements OnInit, OnDestroy {
     const email = this.editForm.get('email').value;
     const firstName = this.editForm.get('firstName').value;
     const lastName = this.editForm.get('lastName').value;
+    const $key = this.authservice.getUid();
     const user: User = new User(displayName, email, firstName, lastName);
     this.authservice.editCurrentUser(user);
     this.router.navigate(['/userprofile']);
   }
-
 }

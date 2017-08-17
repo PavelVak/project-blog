@@ -10,11 +10,21 @@ export class User {
   public followerArr: string[];
   public isFollower: boolean;
 
-  constructor(displayName: string = '', email: string = '', firstName: string = '', lastName: string = '', $key?:string) {
+  constructor(displayName: string = '',
+              email: string = '',
+              firstName: string = '',
+              lastName: string = '',
+              $key?: string,
+              isFollower?: boolean) {
    this.displayName = displayName;
    this.email = email;
    this.firstName = firstName;
    this.lastName = lastName;
-   this.$key = $key;
+   if($key) {
+     this.$key = $key;
+   }
+   if(isFollower) {
+     this.isFollower = isFollower;
+   }
   }
 }
