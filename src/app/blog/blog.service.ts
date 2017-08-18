@@ -8,24 +8,40 @@ import { AuthService } from '../auth/auth.service';
 export class BlogService {
   blog: Blog ;
   blogs: FirebaseListObservable<any[]>;
+  friendBlogs: FirebaseListObservable<any[]>;
   key: string;
   constructor(private af: AngularFireAuth, private db: AngularFireDatabase, private authService: AuthService) {
     this.key = this.authService.getUid();
     this.blogs = this.db.list('users/' + this.key + '/blogs');
   }
 
-  getAllBlogs() {
-    this.key = this.authService.getUid();
-    this.blogs = this.db.list('users/' + this.key + '/blogs');
-    return this.blogs.map(
-      (data) => data.map(x => x as Blog)
-    );
+  getAllBlogs(key?: string) {
+    if(key) {
+      this.friendBlogs = this.db.list('users/' + key + '/blogs');
+      return this.friendBlogs.map(
+        (data) => data.map(x => x as Blog)
+      );
+    } else {
+      this.key = this.authService.getUid();
+      this.blogs = this.db.list('users/' + this.key + '/blogs');
+      return this.blogs.map(
+        (data) => data.map(x => x as Blog)
+      );
+    }
   }
 
-  getBlogBykey(key: string) {
-    return this.blogs.map(
-      (data) => data.find(x => x.$key == key)
-    );
+  getBlogBykey(key: string, friend?: string) {
+    if(!!friend) {
+      this.friendBlogs = this.db.list('users/' + friend + '/blogs');
+      return this.friendBlogs.map(
+        (data) => data.find(x => x.$key == key)
+      );
+    } else {
+      return this.blogs.map(
+        (data) => data.find(x => x.$key == key)
+      );
+    }
+
   }
 
   deleteBlogByKey($key: string) {

@@ -13,6 +13,7 @@ import { UserService } from '../user.service';
 })
 export class UserProfileComponent implements OnInit, OnDestroy {
   @Input() user: User;
+  @Input() onlyFollow: boolean;
   subscription: Subscription;
   isEdit: boolean = false;
   isFriend: boolean = false;
@@ -24,6 +25,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     if(this.user == null) {
       this.subscription = this.authservice.getMessage().subscribe(user => this.user = user);
       this.isEdit = true;
+      this.onlyFollow = false;
     }
   }
 
@@ -37,16 +39,30 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     this.router.navigate(['/userEdit']);
   }
 
-  onAddFollower($event){
+  onAddFollower() {
     let followerKey = this.user.$key;
     if(!this.user.isFollower) {
       this.followersService.addFollower(followerKey);
       this.user.isFollower = true;
-    } else {
-      this.user.isFollower = false;
     }
   }
 
+  onDeleteFollower() {
+    let followerValue = this.user.$key;
+    let followerKey: string;
+    this.followersService.getAllFollowers().subscribe(data => {
+       data.forEach(item => {
+        if (item.$value == followerValue) {
+          followerKey = item.$key;
+        }
+      });
+      this.followersService.deleteFollowerByKey(followerKey);
+      this.user.isFollower = false;
+    });
 
+  }
 
+  directToBlogList() {
+    this.router.navigate(['/blogList/friend', this.user.$key])
+  }
 }

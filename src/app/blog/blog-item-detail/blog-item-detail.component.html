@@ -5,8 +5,8 @@
     <time>{{blogDetail.blogData}}</time>
     <div class="btn-holder">
       <button md-button class="btn" (click)="directBakc()">Back</button>
-      <button md-button class="btn" (click)="directEdit()">Edit</button>
-      <button md-button class="btn btn-alert" (click)="deleteBlog()">Delete</button>
+      <button md-button class="btn" (click)="directEdit()" *ngIf ="!friendBlogKey">Edit</button>
+      <button md-button class="btn btn-alert" (click)="deleteBlog()" *ngIf ="!friendBlogKey">Delete</button>
     </div>
   </footer>
 </div>

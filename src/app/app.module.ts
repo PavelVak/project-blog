@@ -56,7 +56,9 @@ const appRoutes: Routes = [
   { path: 'friends-list', component: UsersListComponent, data: {onlyFollowers: true}},
   { path: 'blogAdd', component: BlogAddComponent },
   { path: 'blogList', component: BlogListComponent},
+  { path: 'blogList/friend/:key', component: BlogListComponent},
   { path: 'blogList/:key', component: BlogItemDetailComponent},
+  { path: 'blogList/friend/:key/:blogItemKey', component: BlogItemDetailComponent},
   { path: 'blogEdit/:key', component: BlogEditComponent},
 ];
 

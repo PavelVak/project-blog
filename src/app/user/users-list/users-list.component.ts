@@ -10,7 +10,6 @@ import { FollowersService } from '../followers.service';
   styleUrls: ['./users-list.component.css']
 })
 export class UsersListComponent implements OnInit {
-  pageTitle: string = 'Users List';
   users: User[] = [];
   onlyFollowers: boolean;
 
@@ -21,6 +20,7 @@ export class UsersListComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('only', this.onlyFollowers);
     if(!this.onlyFollowers) {
       let keyArr: string[] = [];
       this.followersService.getAllFollowers().subscribe(data => {

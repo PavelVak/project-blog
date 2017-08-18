@@ -1,2 +1,2 @@
-<h2>{{pageTitle}}</h2>
-<app-user-profile *ngFor="let userItem of users" [user]="userItem"></app-user-profile>
+<h2>{{onlyFollowers ? "Friends List" : "Users List"}}</h2>
+<app-user-profile *ngFor="let userItem of users" [user]="userItem" [onlyFollow]="onlyFollowers"></app-user-profile>

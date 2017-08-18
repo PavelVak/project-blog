@@ -1,5 +1,5 @@
 <h2>{{isEdit ? user.displayName + " Profile": user.displayName}}
-  <span *ngIf="user.isFollower"> is your friend</span>
+  <span *ngIf="user.isFollower || onlyFollow"> is your friend</span>
 </h2>
 <div class="user-profile-holder">
   <div class="user-profile-img"></div>
@@ -12,5 +12,7 @@
 </div>
 <button *ngIf="isEdit; else addFollowerBtn" md-button class="btn" (click)="onRedact()">Edit</button>
 <ng-template #addFollowerBtn>
-  <button md-button class="btn" (click)="onAddFollower($event)">{{ user.isFollower ? "Remove from Friends" : "Add to Friends" }}</button>
+  <button md-button class="btn" (click)="onDeleteFollower()" *ngIf="user.isFollower || onlyFollow">Remove from Friends</button>
+  <button md-button class="btn" (click)="onAddFollower()" *ngIf="!user.isFollower && !onlyFollow">Add to Friends</button>
+  <button md-button class="btn" *ngIf="user.isFollower || onlyFollow" (click)="directToBlogList()">Friend's Posts</button>
 </ng-template>

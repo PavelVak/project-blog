@@ -12,12 +12,19 @@ import { BlogService } from '../blog.service';
 export class BlogItemDetailComponent implements OnInit {
   blogDetail: Blog;
   currentKey: string;
+  friendBlogKey: string;
 
   constructor(private route: ActivatedRoute, private blogService: BlogService, private router: Router) {}
 
   ngOnInit() {
     this.currentKey = this.route.snapshot.params['key'];
-    this.blogService.getBlogBykey(this.currentKey).subscribe(data => this.blogDetail = data);
+    this.friendBlogKey = this.route.snapshot.params['blogItemKey'];
+    if(this.friendBlogKey) {
+      this.blogService.getBlogBykey(this.friendBlogKey, this.currentKey).subscribe(data => this.blogDetail = data);
+    } else {
+      this.blogService.getBlogBykey(this.currentKey).subscribe(data => this.blogDetail = data);
+    }
+
   }
 
   directBakc() {

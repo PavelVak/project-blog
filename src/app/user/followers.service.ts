@@ -25,9 +25,9 @@ export class FollowersService {
     );
   }
 
-  // deleteBlogByKey($key: string) {
-  //   this.blogs.remove($key);
-  // }
+  deleteFollowerByKey($key: string) {
+    this.followers.remove($key);
+  }
 
   addFollower(followerKey: string) {
     this.key = this.authService.getUid();
