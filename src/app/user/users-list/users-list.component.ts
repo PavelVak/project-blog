@@ -20,8 +20,7 @@ export class UsersListComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('only', this.onlyFollowers);
-    if(!this.onlyFollowers) {
+    if (!this.onlyFollowers) {
       let keyArr: string[] = [];
       this.followersService.getAllFollowers().subscribe(data => {
         keyArr = data.map(item => item.$value);
@@ -33,18 +32,29 @@ export class UsersListComponent implements OnInit {
             }
             return item.$key != localStorage.getItem('uid');
           });
-          console.log(this.users);
-          return this.users;
         });
       });
     } else {
       let keyArr: string[] = [];
+
+      console.warn('////////');
       this.followersService.getAllFollowers().subscribe(data => {
+        console.log('!!!!!!')
         keyArr = data.map(item => item.$value);
-        console.log(this.users);
-        keyArr.forEach((key) => {
-          this.userService.getUserByKey(key).subscribe(data => this.users.push(...data));
-        });
+        console.log('Keys ', JSON.stringify(keyArr));
+        this.users = [];
+        if (keyArr.length > 0) {
+          keyArr.forEach((key) => {
+            console.error('key', key);
+            const sub = this.userService.getUserByKey(key).subscribe(data => {
+              console.log('Data', data);
+              data[0].isFollower = true;
+              this.users.push(...data);
+              console.log('array after push', this.users);
+              sub.unsubscribe();
+            });
+          });
+        }
       });
     }
   }

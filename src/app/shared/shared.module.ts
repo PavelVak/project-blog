@@ -12,10 +12,12 @@ import {
   MdSidenavModule, MdSliderModule, MdSlideToggleModule, MdSnackBarModule, MdSortModule, MdTableModule, MdTabsModule,
   MdToolbarModule, MdTooltipModule
 } from '@angular/material';
+import {RemoveFollowerDirective} from "./directives/remove-follower.directive";
 
 @NgModule({
   declarations: [
-    HeaderComponent
+    HeaderComponent,
+    RemoveFollowerDirective
   ],
   imports: [
     CommonModule,
@@ -56,6 +58,7 @@ import {
   ],
   exports: [
     HeaderComponent,
+    RemoveFollowerDirective,
     MdAutocompleteModule,
     MdButtonModule,
     MdButtonToggleModule,

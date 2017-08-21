@@ -4,6 +4,7 @@ import { GenericValidator } from '../../validators/generic-validator';
 import { Observable } from 'rxjs/Observable';
 import { BlogService } from '../blog.service';
 import { Blog } from '../../shared/models/blog.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-blog-add',
@@ -20,7 +21,7 @@ export class BlogAddComponent implements OnInit, AfterViewInit {
   private validationMessages: { [key: string]: { [key: string]: string } };
   private genericValidator: GenericValidator;
 
-  constructor(private fb: FormBuilder, private blogService: BlogService) {
+  constructor(private fb: FormBuilder, private blogService: BlogService, private router: Router) {
     // Defines all of the validation messages for the form.
     // These could instead be retrieved from a file or database.
     this.validationMessages = {
@@ -63,6 +64,7 @@ export class BlogAddComponent implements OnInit, AfterViewInit {
     const date = new Date().toString();
     const blog: Blog = new Blog(head, content, date);
     this.blogService.addBlog(blog);
+    this.router.navigate(['/blogList']);
   }
 
 }

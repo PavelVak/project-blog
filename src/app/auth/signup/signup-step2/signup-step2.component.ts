@@ -79,4 +79,11 @@ export class SignupStep2Component implements OnInit, AfterViewInit {
     this.authService.setPersonalData(displayName, firstName, lastName);
   }
 
+
+  /*Upload img section*/
+  upload() {
+
+  }
+  /*end upload img section*/
+
 }

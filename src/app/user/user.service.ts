@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { User } from '../shared/models/user.model';
@@ -15,7 +15,7 @@ export class UserService{
   getAllUsers() {
     return this.users.map(
       (data) => data.map(x => x as User)
-    )
+    );
   }
 
   getUserByKey(key) {
@@ -33,7 +33,7 @@ export class UserService{
   }
 
   editUser(key: string, user: User) {
-    this.db.object('users/'+key).update(user);
+    this.db.object('users/'+ key).update(user);
   }
 
 }

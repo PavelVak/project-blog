@@ -2,3 +2,8 @@
   display: flex;
   flex-direction: column;
 }
+
+h2 span {
+  margin: 0 0 0 15px;
+  color: #3f51b5;
+}

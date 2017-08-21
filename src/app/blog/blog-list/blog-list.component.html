@@ -1,4 +1,4 @@
-<h2>{{pageTitle + displayName}}</h2>
+<h2>{{pageTitle}}<span>{{displayName}}</span></h2>
 <div class="blogs-holder">
   <app-blog-item *ngFor="let blog of blogList" [blogItem]="blog"></app-blog-item>
 </div>

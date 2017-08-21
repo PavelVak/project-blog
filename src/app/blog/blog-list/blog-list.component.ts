@@ -22,9 +22,9 @@ export class BlogListComponent implements OnInit {
     this.blogService.getAllBlogs(this.key).subscribe(data => this.blogList = data);
     if (this.route.snapshot.params['key']) {
       this.key = this.route.snapshot.params['key'];
+      this.blogService.getAllBlogs(this.key).subscribe(data => this.blogList = data);
       this.userService.getUserByKey(this.key).subscribe(data => this.displayName = data[0].displayName);
     }
 
   }
-
 }

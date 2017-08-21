@@ -18,7 +18,9 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   isEdit: boolean = false;
   isFriend: boolean = false;
 
-  constructor(private authservice: AuthService, private followersService: FollowersService, private router: Router,
+  constructor(private authservice: AuthService,
+              private followersService: FollowersService,
+              private router: Router,
               private userService: UserService) {}
 
   ngOnInit() {
@@ -51,7 +53,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     let followerValue = this.user.$key;
     let followerKey: string;
     this.followersService.getAllFollowers().subscribe(data => {
-       data.forEach(item => {
+      data.forEach(item => {
         if (item.$value == followerValue) {
           followerKey = item.$key;
         }
@@ -63,6 +65,6 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   }
 
   directToBlogList() {
-    this.router.navigate(['/blogList/friend', this.user.$key])
+    this.router.navigate(['/blogList/friend', this.user.$key]);
   }
 }

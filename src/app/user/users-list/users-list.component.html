@@ -1,2 +1,2 @@
-<h2>{{onlyFollowers ? "Friends List" : "Users List"}}</h2>
+<h2>{{onlyFollowers ? "Friends List" : "Users List"}} <span *ngIf="users.length == 0">empty</span></h2>
 <app-user-profile *ngFor="let userItem of users" [user]="userItem" [onlyFollow]="onlyFollowers"></app-user-profile>
