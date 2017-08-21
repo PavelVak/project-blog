@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
 
 import { SignUpModel } from '../shared/models/signup.model';
@@ -14,15 +14,12 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class AuthService {
   signUpData: SignUpModel = new SignUpModel();
-
   user: User ;
   users: FirebaseListObservable<any[]>;
-
   /*!!!!!!!!!!!!!!!!!subject section!!!!!!!!!!!!!!!!!!!!!!*/
   private subject = new BehaviorSubject<any>(null);
 
   sendMessage(user: User) {
-    console.log('1');
     this.subject.next(user);
   }
 

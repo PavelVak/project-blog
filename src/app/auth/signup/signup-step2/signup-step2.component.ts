@@ -57,7 +57,8 @@ export class SignupStep2Component implements OnInit, AfterViewInit {
     this.signUpFormStep2 = this.fb.group({
       displayName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(10)]],
       firstName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(10)]],
-      lastName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(10)]]
+      lastName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(10)]],
+      avatar: [null]
     });
   }
 
@@ -78,12 +79,4 @@ export class SignupStep2Component implements OnInit, AfterViewInit {
     const lastName = this.signUpFormStep2.get('lastName').value;
     this.authService.setPersonalData(displayName, firstName, lastName);
   }
-
-
-  /*Upload img section*/
-  upload() {
-
-  }
-  /*end upload img section*/
-
 }

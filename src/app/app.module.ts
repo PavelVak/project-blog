@@ -32,6 +32,8 @@ import { BlogItemDetailComponent } from './blog/blog-item-detail/blog-item-detai
 import { BlogEditComponent } from './blog/blog-edit/blog-edit.component';
 import { UsersListComponent } from './user/users-list/users-list.component';
 import { FollowersService } from './user/followers.service';
+import { BlogAddEditComponent } from './blog/blog-add-edit/blog-add-edit.component';
+import { BlogResolverService } from './blog/blog-resolver.service';
 
 // Initialize Firebase
 export const firebaseConfig = {
@@ -44,7 +46,7 @@ export const firebaseConfig = {
 };
 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', redirectTo: '/blogList', pathMatch: 'full' },
   { path: 'signup', component: SignupComponent, children: [
     {path: '', component: SignupStep1Component},
     {path: 'userData', component: SignupStep2Component},
@@ -60,6 +62,11 @@ const appRoutes: Routes = [
   { path: 'blogList/:key', component: BlogItemDetailComponent},
   { path: 'blogList/friend/:key/:blogItemKey', component: BlogItemDetailComponent},
   { path: 'blogEdit/:key', component: BlogEditComponent},
+
+
+
+  { path: 'blog-edit/:key', component: BlogAddEditComponent, resolve: { blog: BlogResolverService}},
+  { path: 'blog-add', component: BlogAddEditComponent, data: {isEdit: false}},
 ];
 
 @NgModule({
@@ -89,7 +96,7 @@ const appRoutes: Routes = [
   exports: [
     RouterModule
   ],
-  providers: [AuthService, UserService, FollowersService, AngularFireAuth, AuthGuard, AngularFireDatabase],
+  providers: [AuthService, UserService, FollowersService, AngularFireAuth, AuthGuard, AngularFireDatabase, BlogResolverService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
