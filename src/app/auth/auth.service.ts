@@ -148,7 +148,7 @@ export class AuthService {
 
   editCurrentUser(user: User){
     const key = this.af.auth.currentUser.uid;
-    this.db.object('users/'+key).update(user);
+    this.db.object('users/'+ key).update(user);
     this.user = user;
     const currentEmail = this.af.auth.currentUser.email;
     if(currentEmail !== this.user.email){

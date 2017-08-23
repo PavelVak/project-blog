@@ -65,7 +65,7 @@ const appRoutes: Routes = [
 
 
 
-  { path: 'blog-edit/:key', component: BlogAddEditComponent, resolve: { blog: BlogResolverService}},
+  { path: 'blog-edit/:key', component: BlogAddEditComponent,  data: {isEdit: true}},
   { path: 'blog-add', component: BlogAddEditComponent, data: {isEdit: false}},
 ];
 

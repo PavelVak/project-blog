@@ -1,29 +1,36 @@
 <h3>{{pageTitle}}</h3>
 <form [formGroup]="editForm" (ngSubmit)="onEdit()">
-  <md-input-container class="form-group">
-    <input mdInput placeholder="DisplayName" type="text" formControlName="displayName">
-    <md-error *ngIf="displayMessage.displayName">
-      {{displayMessage.displayName}}
-    </md-error>
-  </md-input-container>
-  <md-input-container class="form-group">
-    <input mdInput placeholder="Email" type="email" formControlName="email">
-    <md-error *ngIf="displayMessage.email">
-      {{displayMessage.email}}
-    </md-error>
-  </md-input-container>
-  <md-input-container class="form-group">
-    <input mdInput placeholder="FirstName" type="text" formControlName="firstName">
-    <md-error *ngIf="displayMessage.firstName">
-      {{displayMessage.firstName}}
-    </md-error>
-  </md-input-container>
-  <md-input-container class="form-group">
-    <input mdInput placeholder="LastName" type="text" formControlName="lastName">
-    <md-error *ngIf="displayMessage.lastName">
-      {{displayMessage.lastName}}
-    </md-error>
-  </md-input-container>
+  <app-input-wrapper
+    [element]="'input'"
+    [type]="'text'"
+    [placeholder]="'DisplayName'"
+    [group]="editForm"
+    [control]="editForm.get('displayName')"
+    [controlName]="'displayName'"></app-input-wrapper>
+
+  <app-input-wrapper
+    [element]="'input'"
+    [type]="'email'"
+    [placeholder]="'Email'"
+    [group]="editForm"
+    [control]="editForm.get('email')"
+    [controlName]="'email'"></app-input-wrapper>
+
+  <app-input-wrapper
+    [element]="'input'"
+    [type]="'text'"
+    [placeholder]="'FirstName'"
+    [group]="editForm"
+    [control]="editForm.get('firstName')"
+    [controlName]="'firstName'"></app-input-wrapper>
+
+  <app-input-wrapper
+    [element]="'input'"
+    [type]="'text'"
+    [placeholder]="'LastName'"
+    [group]="editForm"
+    [control]="editForm.get('lastName')"
+    [controlName]="'lastName'"></app-input-wrapper>
   <div class="form-group">
     <button md-button class="btn" type="submit">Edit</button>
   </div>

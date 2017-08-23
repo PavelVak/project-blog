@@ -1,0 +1,8 @@
+<md-input-container class="form-group" [formGroup]="group">
+  <label *ngIf="label">{{label}}</label>
+  <input *ngIf="element == 'input'" mdInput [placeholder]="placeholder" [type]="type" [formControl]="control" [formControlName]="controlName">
+  <textarea *ngIf="element == 'textarea'" mdInput cols="30" rows="5" [placeholder]="placeholder"  [formControl]="control" [formControlName]="controlName"></textarea>
+  <md-error *ngIf="displayMessage[controlName]">
+    {{displayMessage[controlName]}}
+  </md-error>
+</md-input-container>

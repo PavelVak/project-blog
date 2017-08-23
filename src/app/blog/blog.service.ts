@@ -55,7 +55,7 @@ export class BlogService {
   }
 
   editBlog(key: string, authorKey: string,  blog: Blog) {
-    this.db.object('users/' + authorKey + '/blogs/' +key).update(blog);
+    this.db.object('users/' + authorKey + '/blogs/' + key).update(blog);
 
   }
 

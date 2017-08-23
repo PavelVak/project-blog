@@ -1,23 +1,29 @@
 <h3>{{pageTitle}}</h3>
 <form [formGroup]="signUpFormStep2" (ngSubmit)="submitFormData()">
-  <md-input-container class="form-group">
-    <input mdInput placeholder="DisplayName" type="text" formControlName="displayName">
-    <md-error *ngIf="displayMessage.displayName">
-      {{displayMessage.displayName}}
-    </md-error>
-  </md-input-container>
-  <md-input-container class="form-group">
-    <input mdInput placeholder="First Name" type="text" formControlName="firstName">
-    <md-error *ngIf="displayMessage.firstName">
-      {{displayMessage.firstName}}
-    </md-error>
-  </md-input-container>
-  <md-input-container class="form-group">
-    <input mdInput placeholder="Last Name" type="text" formControlName="lastName">
-    <md-error *ngIf="displayMessage.lastName">
-    {{displayMessage.lastName}}
-    </md-error>
-  </md-input-container>
+  <app-input-wrapper
+    [element]="'input'"
+    [type]="'text'"
+    [placeholder]="'DisplayName'"
+    [group]="signUpFormStep2"
+    [control]="signUpFormStep2.get('displayName')"
+    [controlName]="'displayName'"></app-input-wrapper>
+
+  <app-input-wrapper
+    [element]="'input'"
+    [type]="'text'"
+    [placeholder]="'First Name'"
+    [group]="signUpFormStep2"
+    [control]="signUpFormStep2.get('firstName')"
+    [controlName]="'firstName'"></app-input-wrapper>
+
+  <app-input-wrapper
+    [element]="'input'"
+    [type]="'text'"
+    [placeholder]="'Last Name'"
+    [group]="signUpFormStep2"
+    [control]="signUpFormStep2.get('lastName')"
+    [controlName]="'lastName'"></app-input-wrapper>
+
   <div class="form-group">
     <button md-button class="btn" [disabled]='!signUpFormStep2.valid' type="submit">Submit</button>
   </div>

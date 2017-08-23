@@ -32,7 +32,7 @@ export class BlogItemDetailComponent implements OnInit {
   }
 
   directEdit() {
-    this.router.navigate(['/blogEdit', this.currentKey]);
+    this.router.navigate(['/blog-edit', this.currentKey]);
   }
 
   deleteBlog() {

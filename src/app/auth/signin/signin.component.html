@@ -1,17 +1,21 @@
 <h3>{{pageTitle}}</h3>
 <form [formGroup]="signInForm" (ngSubmit)="onSignin()">
-  <md-input-container class="form-group">
-    <input mdInput placeholder="Email" type="email" formControlName="email">
-    <md-error *ngIf="displayMessage.email">
-      {{displayMessage.email}}
-    </md-error>
-  </md-input-container>
-  <md-input-container class="form-group">
-    <input mdInput placeholder="Password" type="password" formControlName="password">
-    <md-error *ngIf="displayMessage.password">
-      {{displayMessage.password}}
-    </md-error>
-  </md-input-container>
+  <app-input-wrapper
+    [element]="'input'"
+    [type]="'email'"
+    [placeholder]="'Email'"
+    [group]="signInForm"
+    [control]="signInForm.get('email')"
+    [controlName]="'email'"></app-input-wrapper>
+
+  <app-input-wrapper
+    [element]="'input'"
+    [type]="'password'"
+    [placeholder]="'Password'"
+    [group]="signInForm"
+    [control]="signInForm.get('password')"
+    [controlName]="'password'"></app-input-wrapper>
+
   <div class="form-group">
     <button md-button class="btn" [disabled]='!signInForm.valid' type="submit">Sign In</button>
     <button md-button class="btn" type="submit" (click)="onSigninGmail()">Sign In with Google</button>

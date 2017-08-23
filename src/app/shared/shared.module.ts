@@ -12,17 +12,19 @@ import {
   MdSidenavModule, MdSliderModule, MdSlideToggleModule, MdSnackBarModule, MdSortModule, MdTableModule, MdTabsModule,
   MdToolbarModule, MdTooltipModule
 } from '@angular/material';
-import {RemoveFollowerDirective} from "./directives/remove-follower.directive";
+import { InputWrapperComponent } from './input-wrapper/input-wrapper.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     HeaderComponent,
-    RemoveFollowerDirective
+    InputWrapperComponent
   ],
   imports: [
     CommonModule,
     MdCommonModule,
     RouterModule,
+    ReactiveFormsModule,
     /*Material section*/
     MdAutocompleteModule,
     MdButtonModule,
@@ -58,7 +60,7 @@ import {RemoveFollowerDirective} from "./directives/remove-follower.directive";
   ],
   exports: [
     HeaderComponent,
-    RemoveFollowerDirective,
+    InputWrapperComponent,
     MdAutocompleteModule,
     MdButtonModule,
     MdButtonToggleModule,

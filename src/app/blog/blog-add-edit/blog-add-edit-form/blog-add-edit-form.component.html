@@ -1,18 +1,24 @@
 <form [formGroup]="blogForm" (ngSubmit)="submitFormData();">
-  <md-input-container class="form-group">
-    <input mdInput placeholder="Blog Title" type="text" formControlName="blogHead">
-    <!--<md-error *ngIf="displayMessage.blogHead">-->
-      <!--{{displayMessage.blogHead}}-->
-    <!--</md-error>-->
-  </md-input-container>
-  <md-input-container class="form-group">
-    <textarea mdInput cols="30" rows="5" placeholder="Blog Content" formControlName="blogContent"></textarea>
-    <!--<md-error *ngIf="displayMessage.blogContent">-->
-      <!--{{displayMessage.blogContent}}-->
-    <!--</md-error>-->
-  </md-input-container>
+
+  <app-input-wrapper
+    [element]="'input'"
+    [type]="'text'"
+    [placeholder]="'Blog Title'"
+    [group]="blogForm"
+    [control]="blogForm.get('blogHead')"
+    [controlName]="'blogHead'"
+    ></app-input-wrapper>
+
+  <app-input-wrapper
+    [element]="'textarea'"
+    [placeholder]="'Blog Content'"
+    [group]="blogForm"
+    [control]="blogForm.get('blogContent')"
+    [controlName]="'blogContent'"
+    ></app-input-wrapper>
+
   <div class="form-group">
-    <button md-button class="btn" type="submit" (click)="directBack()" *ngIf="state">Back</button>
+    <button md-button class="btn" (click)="directBack()" *ngIf="state">Back</button>
     <button md-button class="btn" [disabled]='!blogForm.valid' type="submit" (click)="submitFormData()">{{state? 'Edit Blog': 'Add blog'}}</button>
   </div>
 </form>

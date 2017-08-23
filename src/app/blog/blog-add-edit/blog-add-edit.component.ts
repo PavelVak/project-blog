@@ -16,13 +16,13 @@ export class BlogAddEditComponent implements OnInit {
 
   constructor(private blogService: BlogService, private route: ActivatedRoute){
     this.isEdit = this.route.snapshot.data['isEdit'];
-    this.isEdit = true;
   }
 
   ngOnInit() {
     if (this.isEdit) {
       this.pageTitle = 'Edit Blog';
-      this.route.data.subscribe((data: Data) => this.blogDetail = data['blog']);
+      this.currentKey = this.route.snapshot.params['key'];
+      this.blogService.getBlogBykey(this.currentKey).subscribe(blog => this.blogDetail = blog);
     } else {
       this.pageTitle = 'Add Blog';
       this.blogDetail = new Blog();
