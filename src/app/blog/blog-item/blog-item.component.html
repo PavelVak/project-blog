@@ -1,4 +1,7 @@
 <div class="blog-item">
   <h3>{{blogItem.blogHead}}</h3>
+  <p *ngIf="onlyFollow"><span>author:</span>{{blogItem.authorName}}</p>
+  <p>{{blogItemContent}}</p>
+  <time>{{blogItemDate}}</time>
   <button md-button class="btn" (click)="directToBlogDetail()">Read</button>
 </div>

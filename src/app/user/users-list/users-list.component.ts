@@ -30,27 +30,20 @@ export class UsersListComponent implements OnInit {
               item.isFollower = true;
               return item;
             }
-            return item.$key != localStorage.getItem('uid');
+            return item.$key !== localStorage.getItem('uid');
           });
         });
       });
     } else {
       let keyArr: string[] = [];
-
-      console.warn('////////');
       this.followersService.getAllFollowers().subscribe(data => {
-        console.log('!!!!!!')
         keyArr = data.map(item => item.$value);
-        console.log('Keys ', JSON.stringify(keyArr));
         this.users = [];
         if (keyArr.length > 0) {
           keyArr.forEach((key) => {
-            console.error('key', key);
             const sub = this.userService.getUserByKey(key).subscribe(data => {
-              console.log('Data', data);
               data[0].isFollower = true;
               this.users.push(...data);
-              console.log('array after push', this.users);
               sub.unsubscribe();
             });
           });

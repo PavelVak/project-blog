@@ -2,9 +2,9 @@
   <h3>{{blogDetail.blogHead}}</h3>
   <p>{{blogDetail.blogContent}}</p>
   <footer>
-    <time>{{blogDetail.blogData}}</time>
+    <time>{{blogDetailDate}}</time>
     <div class="btn-holder">
-      <button md-button class="btn" (click)="directBakc()">Back</button>
+      <button md-button class="btn" (click)="directBack()">Back</button>
       <button md-button class="btn" (click)="directEdit()" *ngIf ="!friendBlogKey">Edit</button>
       <button md-button class="btn btn-alert" (click)="deleteBlog()" *ngIf ="!friendBlogKey">Delete</button>
     </div>

@@ -5,13 +5,15 @@ import { Subscription } from 'rxjs/Subscription';
 import { AuthService } from '../../auth/auth.service';
 import { Router } from '@angular/router';
 import { EMAIL_REGEX } from '../../validators/validator.config';
+import { Observable } from 'rxjs/Observable';
+import { CanComponentDeactivate } from '../../can-deactivate-guard.service';
 
 @Component({
   selector: 'app-user-edit',
   templateUrl: './user-edit.component.html',
   styleUrls: ['./user-edit.component.css']
 })
-export class UserEditComponent implements OnInit, OnDestroy {
+export class UserEditComponent implements OnInit, OnDestroy, CanComponentDeactivate {
   user: User;
   subscription: Subscription;
 
@@ -43,5 +45,13 @@ export class UserEditComponent implements OnInit, OnDestroy {
     const user: User = new User(displayName, email, firstName, lastName);
     this.authservice.editCurrentUser(user);
     this.router.navigate(['/userprofile']);
+  }
+
+  canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
+    debugger;
+    if (this.user.displayName !== this.editForm.get('displayName').value) {
+      return window.confirm('Do you really want leave?');
+    }
+    return true;
   }
 }

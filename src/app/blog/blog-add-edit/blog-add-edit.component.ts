@@ -1,18 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Data } from '@angular/router';
 import { Blog } from '../../shared/models/blog.model';
 import { BlogService } from '../blog.service';
+import { Observable } from 'rxjs/Observable';
+import { CanComponentDeactivate } from '../../can-deactivate-guard.service';
 
 @Component({
   selector: 'app-blog-add-edit',
   templateUrl: './blog-add-edit.component.html',
   styleUrls: ['./blog-add-edit.component.css']
 })
-export class BlogAddEditComponent implements OnInit {
+export class BlogAddEditComponent implements OnInit, CanComponentDeactivate{
   isEdit: boolean;
   pageTitle: string;
   blogDetail: Blog;
   currentKey: string;
+
+  @ViewChild('form') form: any;
 
   constructor(private blogService: BlogService, private route: ActivatedRoute){
     this.isEdit = this.route.snapshot.data['isEdit'];
@@ -29,4 +33,10 @@ export class BlogAddEditComponent implements OnInit {
     }
   }
 
+  canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
+    if (this.form.blogForm.dirty) {
+      return window.confirm('Do you really want leave?');
+    }
+    return true;
+  }
 }

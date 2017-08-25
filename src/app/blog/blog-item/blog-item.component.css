@@ -13,39 +13,12 @@ h3 {
   color: rgba(255,255,255,.87);
 }
 
+time {
+  display: block;
+  font-size: 12px;
+  padding: 0 0 10px;
+}
 
-
-/*@media (max-width: 576px) {*/
-  /*:host {*/
-    /*width: 100%;*/
-    /*max-width: 100%;*/
-  /*}*/
-/*}*/
-
-/*@media (min-width: 576px) {*/
-  /*:host {*/
-    /*width: 100%;*/
-    /*max-width: 100%;*/
-  /*}*/
-/*}*/
-
-/*@media (min-width: 768px) {*/
-  /*:host {*/
-    /*width: 45%;*/
-    /*max-width: 100%;*/
-  /*}*/
-/*}*/
-
-/*@media (min-width: 992px) {*/
-  /*:host {*/
-    /*width: 30%;*/
-    /*max-width: 100%;*/
-  /*}*/
-/*}*/
-
-/*@media (min-width: 1200px) {*/
-  /*:host {*/
-    /*width: 30%;*/
-    /*max-width: 100%;*/
-  /*}*/
-/*}*/
+.blog-item span {
+  padding: 0 10px 0 0;
+}

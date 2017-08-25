@@ -3,6 +3,7 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Blog } from '../shared/models/blog.model';
 import { AuthService } from '../auth/auth.service';
+import * as moment from 'moment';
 
 @Injectable()
 export class BlogService {
@@ -57,6 +58,15 @@ export class BlogService {
   editBlog(key: string, authorKey: string,  blog: Blog) {
     this.db.object('users/' + authorKey + '/blogs/' + key).update(blog);
 
+  }
+  /*slice string*/
+  truncate(str, maxlength) {
+    return (str.length > maxlength) ?
+      str.slice(0, maxlength - 3) + '...' : str;
+  }
+
+  formatDate (date) {
+    return moment(date).format('MMMM Do YYYY, h:mm:ss a')
   }
 
 }

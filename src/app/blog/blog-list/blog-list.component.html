@@ -1,5 +1,8 @@
 <h2>{{pageTitle}}<span>{{displayName}}</span></h2>
+<div *ngIf="onlyFollowers" class="btn-holder">
+  <button md-button class="btn" (click)="onSort()">Sort Blogs by Date</button>
+</div>
 <div class="blogs-holder">
-  <app-blog-item *ngFor="let blog of blogList" [blogItem]="blog"></app-blog-item>
+  <app-blog-item *ngFor="let blog of blogList" [blogItem]="blog" [onlyFollow]="onlyFollowers"></app-blog-item>
 </div>
 

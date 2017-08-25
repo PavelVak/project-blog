@@ -3,13 +3,16 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Blog } from '../../../shared/models/blog.model';
 import { BlogService } from '../../blog.service';
+import * as moment from 'moment';
+import { Observable } from 'rxjs/Observable';
+import { CanComponentDeactivate } from '../../../can-deactivate-guard.service';
 
 @Component({
   selector: 'app-blog-add-edit-form',
   templateUrl: './blog-add-edit-form.component.html',
   styleUrls: ['./blog-add-edit-form.component.css']
 })
-export class BlogAddEditFormComponent implements OnInit {
+export class BlogAddEditFormComponent implements OnInit, CanComponentDeactivate {
   @Input() state: boolean;
   @Input() blog: Blog;
   blogForm: FormGroup;
@@ -17,7 +20,13 @@ export class BlogAddEditFormComponent implements OnInit {
   constructor (private fb: FormBuilder,
                private router: Router,
                private route: ActivatedRoute,
-               private blogService: BlogService) {}
+               private blogService: BlogService) {
+
+    const date = new Date().toString();
+    const now = moment(date);
+
+    console.log('hello world', now.format('MMMM Do YYYY, h:mm:ss a'));
+  }
 
   ngOnInit() {
     if (this.state) {
@@ -44,5 +53,9 @@ export class BlogAddEditFormComponent implements OnInit {
   }
   directBack() {
     this.router.navigate(['blogList', this.currentKey]);
+  }
+  canDeactivate (): Observable<boolean> | Promise<boolean> | boolean {
+    console.log('working');
+    return true;
   }
 }
