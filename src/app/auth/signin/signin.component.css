@@ -10,3 +10,15 @@
 .btn[disabled] {
   cursor: not-allowed;
 }
+
+.error-message {
+  color: rgb(244, 67, 54);
+  background: rgba(244, 67, 54, 0.2);
+  padding: 10px 15px;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.error-message span {
+  display: block;
+}

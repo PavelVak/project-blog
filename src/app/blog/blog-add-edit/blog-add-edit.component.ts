@@ -15,6 +15,7 @@ export class BlogAddEditComponent implements OnInit, CanComponentDeactivate{
   pageTitle: string;
   blogDetail: Blog;
   currentKey: string;
+  isSubmitted = false;
 
   @ViewChild('form') form: any;
 
@@ -34,9 +35,12 @@ export class BlogAddEditComponent implements OnInit, CanComponentDeactivate{
   }
 
   canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
-    if (this.form.blogForm.dirty) {
+    if (this.form.blogForm.dirty && !this.isSubmitted) {
       return window.confirm('Do you really want leave?');
     }
     return true;
+  }
+  submitStateHandler() {
+    this.isSubmitted = true;
   }
 }

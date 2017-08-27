@@ -10,32 +10,32 @@ import { User } from '../shared/models/user.model';
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
+import { UserService } from '../user/user.service';
 
 @Injectable()
 export class AuthService {
   signUpData: SignUpModel = new SignUpModel();
+  errorMessage: {[code: string]: string} = {};
   user: User ;
   users: FirebaseListObservable<any[]>;
-  /*!!!!!!!!!!!!!!!!!subject section!!!!!!!!!!!!!!!!!!!!!!*/
   private subject = new BehaviorSubject<any>(null);
 
-  sendMessage(user: User) {
-    this.subject.next(user);
+  sendErrorMessage(errMsg: {[code: string]: string}) {
+    this.subject.next(errMsg);
   }
-
-  clearMessage(){
+  clearErrorMessage() {
     this.subject.next(null);
   }
-
-  getMessage(): Observable<any> {
+  getErrorMessage(): Observable<any> {
     return this.subject.asObservable();
   }
-  /*!!!!!!!!!!!!!!!end subject section!!!!!!!!!!!!!!!!!!!!!*/
 
-  constructor(private router: Router, private af: AngularFireAuth, private db: AngularFireDatabase) {
+  constructor(private router: Router,
+              private af: AngularFireAuth,
+              private db: AngularFireDatabase, private userService: UserService) {
     this.users = this.db.list('/users');
     this.user = JSON.parse(localStorage.getItem('currentUser'));
-    this.sendMessage(this.user);
+    this.userService.sendMessage(this.user);
   }
 
   setFirstStepData(email: string, password: string) {
@@ -71,28 +71,29 @@ export class AuthService {
 
         })
       .catch(
-        error => alert(error.message)
+        (error: any) => this.errorHandler(error)
       );
   }
 
   signinUser(email: string, password: string) {
+    this.errorMessage = {};
     this.af.auth.signInWithEmailAndPassword(email, password)
       .then(
         response => {
           this.router.navigate(['/']);
           // this.getCurrentUser().subscribe(() => {this.sendMessage(this.user);});
-          this.getCurrentUser().subscribe(() => this.sendMessage(JSON.parse(localStorage.getItem('currentUser'))));
+          this.getCurrentUser().subscribe(() => this.userService.sendMessage(JSON.parse(localStorage.getItem('currentUser'))));
           this.af.auth.currentUser.getIdToken()
             .then(
               (token: string) =>  {
                 localStorage.setItem('token', token);
                 localStorage.setItem('uid', this.af.auth.currentUser.uid);
               }
-            )
+            );
         }
       )
       .catch(
-        error => console.log(error)
+        (error: any) => this.errorHandler(error)
       );
   }
 
@@ -100,30 +101,35 @@ export class AuthService {
     this.af.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
       .then(
         response => {
-          // this.getCurrentUser().subscribe(() => {this.sendMessage(this.user);});
-          this.getCurrentUser().subscribe(() => this.sendMessage(JSON.parse(localStorage.getItem('currentUser'))));
+          this.getCurrentUser().subscribe(() => this.userService.sendMessage(JSON.parse(localStorage.getItem('currentUser'))));
           this.af.auth.currentUser.getIdToken()
             .then(
               (token: string) => {
-                localStorage.setItem('token',token);
-                localStorage.setItem('uid',this.af.auth.currentUser.uid);
+                localStorage.setItem('token', token);
+                localStorage.setItem('uid', this.af.auth.currentUser.uid);
                 localStorage.setItem('currentUser', JSON.stringify(this.user));
               }
             )
         }
       )
       .catch(
-        error => console.log(error)
+        (error: any) => this.errorHandler(error)
       );
+  }
+
+  errorHandler(err) {
+    this.errorMessage.code = err.code;
+    this.errorMessage.message = err.message;
+    this.sendErrorMessage(this.errorMessage);
   }
 
   logout() {
     this.af.auth.signOut();
     localStorage.clear();
-    this.clearMessage();
+    this.userService.clearMessage();
   }
 
-  getEmail(){
+  getEmail() {
     return localStorage.getItem('email');
   }
 
@@ -159,6 +165,6 @@ export class AuthService {
       });
     }
     localStorage.setItem('currentUser', JSON.stringify(this.user));
-    this.sendMessage(this.user);
+    this.userService.sendMessage(this.user);
   }
 }

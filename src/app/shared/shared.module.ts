@@ -14,11 +14,13 @@ import {
 } from '@angular/material';
 import { InputWrapperComponent } from './input-wrapper/input-wrapper.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HideDirective } from './directives/hide.directive';
 
 @NgModule({
   declarations: [
     HeaderComponent,
-    InputWrapperComponent
+    InputWrapperComponent,
+    HideDirective
   ],
   imports: [
     CommonModule,
@@ -61,6 +63,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   exports: [
     HeaderComponent,
     InputWrapperComponent,
+    HideDirective,
     MdAutocompleteModule,
     MdButtonModule,
     MdButtonToggleModule,

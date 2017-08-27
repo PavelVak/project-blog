@@ -1,3 +1,6 @@
 <h2>{{pageTitle}}</h2>
-<app-blog-add-edit-form #form [state]="isEdit" [blog]="blogDetail" *ngIf="blogDetail"></app-blog-add-edit-form>
+<app-blog-add-edit-form #form
+                        [state]="isEdit"
+                        [blog]="blogDetail"
+                        *ngIf="blogDetail" (submitState)="submitStateHandler()"></app-blog-add-edit-form>
 

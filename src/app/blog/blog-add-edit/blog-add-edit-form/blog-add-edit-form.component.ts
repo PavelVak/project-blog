@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Blog } from '../../../shared/models/blog.model';
@@ -12,11 +12,12 @@ import { CanComponentDeactivate } from '../../../can-deactivate-guard.service';
   templateUrl: './blog-add-edit-form.component.html',
   styleUrls: ['./blog-add-edit-form.component.css']
 })
-export class BlogAddEditFormComponent implements OnInit, CanComponentDeactivate {
+export class BlogAddEditFormComponent implements OnInit {
   @Input() state: boolean;
   @Input() blog: Blog;
   blogForm: FormGroup;
   currentKey: string;
+  @Output() submitState = new EventEmitter<boolean>();
   constructor (private fb: FormBuilder,
                private router: Router,
                private route: ActivatedRoute,
@@ -42,6 +43,7 @@ export class BlogAddEditFormComponent implements OnInit, CanComponentDeactivate 
     const content: string = this.blogForm.get('blogContent').value;
     const date = new Date().toString();
     const blog: Blog = new Blog(head, content, date);
+    this.submitState.emit();
     if (this.state) {
       const authorKey = localStorage.getItem('uid');
       this.blogService.editBlog(this.currentKey, authorKey, blog);
@@ -53,9 +55,5 @@ export class BlogAddEditFormComponent implements OnInit, CanComponentDeactivate 
   }
   directBack() {
     this.router.navigate(['blogList', this.currentKey]);
-  }
-  canDeactivate (): Observable<boolean> | Promise<boolean> | boolean {
-    console.log('working');
-    return true;
   }
 }

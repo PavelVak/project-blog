@@ -18,7 +18,7 @@
     ></app-input-wrapper>
 
   <div class="form-group">
-    <button md-button class="btn" (click)="directBack()" *ngIf="state">Back</button>
-    <button md-button class="btn" [disabled]='!blogForm.valid' type="submit" (click)="submitFormData()">{{state? 'Edit Blog': 'Add blog'}}</button>
+    <button md-button type="button" class="btn" (click)="directBack()" *ngIf="state">Back</button>
+    <button md-button class="btn" [disabled]='!blogForm.valid' type="submit">{{state? 'Edit Blog': 'Add blog'}}</button>
   </div>
 </form>

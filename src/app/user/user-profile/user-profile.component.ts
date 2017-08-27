@@ -16,7 +16,6 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   @Input() onlyFollow: boolean;
   subscription: Subscription;
   isEdit: boolean = false;
-  isFriend: boolean = false;
 
   constructor(private authservice: AuthService,
               private followersService: FollowersService,
@@ -24,15 +23,15 @@ export class UserProfileComponent implements OnInit, OnDestroy {
               private userService: UserService) {}
 
   ngOnInit() {
-    if(this.user == null) {
-      this.subscription = this.authservice.getMessage().subscribe(user => this.user = user);
+    if (this.user == null) {
+      this.subscription = this.userService.getMessage().subscribe(user => this.user = user);
       this.isEdit = true;
       this.onlyFollow = false;
     }
   }
 
   ngOnDestroy() {
-    if(this.subscription != undefined) {
+    if (this.subscription !== undefined) {
       this.subscription.unsubscribe();
     }
   }
@@ -61,7 +60,6 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       this.followersService.deleteFollowerByKey(followerKey);
       this.user.isFollower = false;
     });
-
   }
 
   directToBlogList() {
